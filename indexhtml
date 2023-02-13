@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Production Line Planner</title>
+  </head>
+  <body>
+    <h1>Production Line Planner</h1>
+
+    <table id="production-line">
+      <tr>
+        <th>Process Number</th>
+        <th>Process Name</th>
+        <th>Time (in minutes)</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td><input type="text" id="process-1"></td>
+        <td><input type="number" id="time-1"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><input type="text" id="process-2"></td>
+        <td><input type="number" id="time-2"></td>
+      </tr>
+      <!-- Add more rows for additional processes -->
+    </table>
+
+    <button id="add-process">Add Process</button>
+    <button id="calculate-total-time">Calculate Total Time</button>
+    <p id="total-time"></p>
+
+    <script>
+      const addProcessButton = document.querySelector('#add-process');
+      const calculateTotalTimeButton = document.querySelector('#calculate-total-time');
+      const productionLineTable = document.querySelector('#production-line');
+
+      let processCount = 2; // Initial number of processes
+
+      addProcessButton.addEventListener('click', () => {
+        processCount++;
+
+        // Add a new row to the table
+        const newRow = productionLineTable.insertRow();
+        newRow.innerHTML = `
+          <td>${processCount}</td>
+          <td><input type="text" id="process-${processCount}"></td>
+          <td><input type="number" id="time-${processCount}"></td>
+        `;
+      });
+
+      calculateTotalTimeButton.addEventListener('click', () => {
+        let totalTime = 0;
+
+        // Calculate the total time by adding up the time for each process
+        for (let i = 1; i <= processCount; i++) {
+          const timeInput = document.querySelector(`#time-${i}`);
+          totalTime += Number(timeInput.value);
+        }
+
+        // Display the total time
+        document.querySelector('#total-time').textContent = `Total Time: ${totalTime} minutes`;
+      });
+    </script>
+  </body>
+</html>
